@@ -3,12 +3,13 @@
 import * as vscode from 'vscode';
 // import [slash from 'slash';
 const slash = require('slash');
-```
+const todo = `
 Test Cases - 
 linux and window paths
 nested folders
 correct values
-```
+opens at start
+`;
 // vsce publish
 class Surge {
 	surgeTypesData : {[id:string]:{file:string,name:string,lineno:number,args:string}};
@@ -54,10 +55,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "surge" is now active!');
-
+  console.log('Congratulations, your extension "surge" is now active!');
+  const FILE_PATTERN = '**/.surgetypes';
+  vscode.workspace.findFiles(
+    FILE_PATTERN
+  ).then((file_uris) => {
+    if (!file_uris.length) {return;}
+    surge.createTypesData(file_uris[0]);
+  });
 	const fsWatcher = vscode.workspace.createFileSystemWatcher(
-		'**/.surgetypes'
+    FILE_PATTERN
   );
 	fsWatcher.onDidChange((uri) => {
 		surge.createTypesData(uri);	
