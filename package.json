@@ -4,7 +4,7 @@
 	"publisher": "joshp-f",
 	"description": "Create type definitions from programs run history and read previous values",
 	"repository": "https://github.com/joshp-f/SurgeVSCode",
-	"version": "0.0.4",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.30.0"
 	},

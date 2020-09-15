@@ -12,7 +12,14 @@ opens at start
 `;
 // vsce publish
 class Surge {
-	surgeTypesData : {[id:string]:{file:string,name:string,lineno:number,args:string}};
+	surgeTypesData : {[id:string]:{
+    file?:string,
+    name?:string,
+    lineno?:number,
+    args?:string,
+    return?:string
+  }
+  };
 	constructor() {
 		this.surgeTypesData = {};
 
@@ -85,7 +92,7 @@ export function activate(context: vscode.ExtensionContext) {
       .slice(-1)[0];
       const line_data = surge.getLineData({file:transformed_filename,line:position.line+1});
       if (!line_data) return new vscode.Hover("");
-			return new vscode.Hover(`${line_data.args}`);
+			return new vscode.Hover(`${line_data.args} -> ${line_data.return}`);
     }
 	}));
 
